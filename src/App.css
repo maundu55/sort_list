@@ -1,0 +1,16 @@
+.card{
+    background: aliceblue;
+    border: 2px solid rgb(186, 185,187);
+    border-radius: 15px;
+    padding-left: 50px;
+    margin-bottom: 10px;
+}
+form{
+    display: flex;
+    justify-content: space-around;
+    margin: 30px 0;
+}
+form div span{
+    margin-right: 20px;
+    font-size: 20px;
+}
