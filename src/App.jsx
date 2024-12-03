@@ -4,7 +4,10 @@ import {Posts} from './Content'
 
 function App() {
   const [list, setList] = useState(Posts);
-  const [query, setQuery] =useState('')
+  const [query, setQuery] =useState('');
+  const[sortField, setSortField] = useState('title');
+  const [sortBy, setSortBy] = useState('ascending');
+  const [result, setResult] = useState()
 
   const handleChange =(e) =>{
     const results = Posts.filter((post) =>{
@@ -22,6 +25,22 @@ function App() {
         <div>
           <span className='span'>Search:</span>
           <input type="search" placeholder='Search' onChange={handleChange}/>
+        </div>
+        <div>
+          <span className='span'>  Sort Field:</span>
+          <select name="field">
+            <option value="title">None</option>
+            <option value="title">Title</option>
+            <option value="description">Description</option>
+          </select>
+        </div>
+        <div>
+          <span className='span'>  Sort By:</span>
+          <select name="sortby">
+            <option value="ascending">None</option>
+            <option value="ascending">Ascending</option>
+            <option value="descending">Descending</option>
+          </select>
         </div>
       </form>
       <div>
