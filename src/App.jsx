@@ -7,17 +7,37 @@ function App() {
   const [query, setQuery] =useState('');
   const[sortField, setSortField] = useState('title');
   const [sortBy, setSortBy] = useState('ascending');
-  const [result, setResult] = useState()
+  const [result, setResult] = useState();
 
   const handleChange =(e) =>{
     const results = Posts.filter((post) =>{
       if(e.target.value ==="") return Posts;
       return post['title'].toLowerCase().includes(e.target.value.toLowerCase())
     })
+    setResult(results)
     setQuery(query);
-    setList(results)
+   setList(results)
   }
 
+    const sortFunction = (result, sortby, sortfield)=>{
+      if(sortby === 'ascending'){
+        result.sort((a, b) => a[sortfield] < b[sortfield] ? -1 :1)
+      }
+      else if(sortby === 'descending'){
+        result.sort((a, b) => a[sortfield] < b[sortfield] ? 1 : -1)
+      }
+      return result
+    }
+    const changeSortField =(field) =>{
+      setSortField(field)
+      setQuery(query)
+      setList(!result ? sortFunction(Posts, sortBy, field) : sortFunction(result, sortBy, field))
+    }
+    const changeSortType =(type) =>{
+      setSortBy(type)
+      setQuery(query)
+      setList(!result ? sortFunction(Posts, type, sortField) : sortFunction(result, type, sortField))
+    }
 
   return (
     <div>
@@ -28,7 +48,7 @@ function App() {
         </div>
         <div>
           <span className='span'>  Sort Field:</span>
-          <select name="field">
+          <select name="field" onChange={(e) => changeSortField(e.target.value)} >
             <option value="title">None</option>
             <option value="title">Title</option>
             <option value="description">Description</option>
@@ -36,7 +56,7 @@ function App() {
         </div>
         <div>
           <span className='span'>  Sort By:</span>
-          <select name="sortby">
+          <select name="sortby" onChange={(e) => changeSortType(e.target.value)}>
             <option value="ascending">None</option>
             <option value="ascending">Ascending</option>
             <option value="descending">Descending</option>
